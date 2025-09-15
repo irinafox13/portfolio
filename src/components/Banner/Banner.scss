@@ -1,0 +1,109 @@
+.banner {
+  --header-height: 86px;
+
+  min-height: 100dvh;
+  margin-top: calc(var(--header-height) * -1);
+
+  &__inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    min-height: inherit;
+    padding-block: 120px 70px;
+
+    &::after {
+      content: "";
+      width: calc(100% - var(--container-padding-x) * 2);
+      max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+      height: 1px;
+      background-color: var(--color-light-gray);
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - (100% - var(--container-padding-x) * 2) / 2);
+
+      @include laptop-above {
+        width: calc(100% - var(--container-laptop-padding-x) * 2);
+        left: calc(50% - (100% - var(--container-laptop-padding-x) * 2) / 2);
+      }
+    }
+  }
+
+  &__side-nav {
+    display: none;
+    @include laptop-above {
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    translate: -52px;
+    animation-name: scrolling-page;
+    animation-fill-mode: both;
+    animation-timeline: scroll();
+    animation-range: 0 300px;
+
+    @keyframes scrolling-page {
+      from {
+        position: relative;
+        top: 0;
+      }
+      to {
+        position: fixed;
+        top: 24px;
+      }
+    }
+
+    &-item {
+      writing-mode: vertical-lr;
+      scale: -1;
+    }
+
+    &-anchor {
+      &::after {
+        content: "";
+        width: 1px;
+        height: 0;
+        background-color: var(--color-black);
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: var(--transition-duration);
+      }
+
+      @include hover {
+        &::after {
+          height: 100%;
+        }
+      }
+
+      &--current {
+        &::after {
+          height: 13px;
+        }
+      }
+    }
+  }
+
+  &__post {
+    flex-grow: 1;
+    @include flex-center;
+    text-align: center;
+  }
+
+  &__toggle-mode {
+    background-color: transparent;
+    border: none;
+    writing-mode: vertical-lr;
+    scale: -1;
+    font-weight: 900;
+    font-size: 14px;
+    padding: 0;
+    align-self: flex-end;
+  }
+}

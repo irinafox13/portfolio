@@ -1,0 +1,54 @@
+.section {
+  position: relative;
+  display: grid;
+  row-gap: fluid(80, 40);
+  padding-block: var(--section-padding-y);
+
+  &::after {
+    content: "";
+    max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+    width: calc(100% - var(--container-padding-x) * 2);
+    height: 1px;
+    background-color: var(--color-light-gray);
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - (100% - var(--container-padding-x) * 2) / 2);
+
+    @include laptop-above {
+      width: calc(100% - var(--container-laptop-padding-x) * 2);
+      left: calc(50% - (100% - var(--container-laptop-padding-x) * 2) / 2);
+    }
+  }
+
+  &__title {
+    position: relative;
+
+    &::after {
+      content: "";
+      width: fluid(80, 40);
+      height: fluid(7, 3);
+      background-color: var(--color-black);
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+    }
+
+    &--right {
+      text-align: right;
+
+      &::after {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    &--center {
+      text-align: center;
+
+      &::after {
+        left: 50%;
+        translate: -50%;
+      }
+    }
+  }
+}

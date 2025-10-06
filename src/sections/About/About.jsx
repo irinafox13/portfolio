@@ -6,30 +6,35 @@ const About = () => {
   const dataAboutMe = {
     name: "Пушкарева Ирина",
     description:
-      "Frontend-разработчик с опытом работы более 4 лет в создании интерактивных и отзывчивых веб-сайтов. Уверенно владею такими технологиями, как HTML, CSS и JavaScript, а также имею базовые знания React и Vue, достаточные для верстки страниц.",
-    skills: [
-      "Кроссбраузерная, адаптивная верстка",
-      "Верстка по макетам Figma, Photoshop",
-      "Рефакторинг, оптимизация, редизайн сайтов",
-      "Pixel Perfect",
-      "CSS3, предпроцессоры SASS и Stylus, BEM",
-      "Tailwind, Bootstrap",
-      "Git, GitLab, GitHub",
-      "HTML, шаблонизаторы: handlebars, nunjucks, twig",
-      "Синтаксис JSX (верстка react, фреймворк Minista.js)",
-      "Верстка на Vue (проекты на Nuxt.js, фреймворке Quasar)",
-      "Сборщики проектов: webpack, vite, gulp",
-      "Верстка Email-писем",
-      "Vanilla JavaScript, JQuery",
-      "REST API",
-      "Eslint, Prettier",
-    ],
+      "Frontend-разработчик с 4-летним опытом верстки и создания интерактивных веб-приложений. Уверенно владею HTML, CSS, JavaScript и имею практический опыт верстки в окружении React и Vue. Ответственно подхожу к соблюдению сроков и качеству реализации проекта. Стремлюсь к написанию чистого, поддерживаемого кода и точному соответствию дизайну (Pixel Perfect).",
+    skills: {
+      "Верстка и стилизация": [
+        "Адаптивная и кроссбраузерная верстка",
+        "Pixel Perfect по макетам Figma/Photoshop",
+        "CSS3, препроцессоры SASS/Stylus, методология BEM",
+        "Фреймворки: Tailwind, Bootstrap",
+        "Верстка email-писем",
+      ],
+      "JavaScript и фреймворки": [
+        "Vanilla JavaScript, jQuery",
+        "Верстка в React (JSX, Minista.js)",
+        "Верстка во Vue (Nuxt.js, Quasar)",
+        "Работа с REST API",
+      ],
+      "Инструменты и процессы": [
+        "Сборщики: Webpack, Vite, Gulp",
+        "Системы контроля версий: Git, GitLab, GitHub",
+        "Шаблонизаторы: Handlebars, Nunjucks, Twig",
+        "Инструменты качества кода: ESLint, Prettier",
+        "Vibe-coding",
+      ],
+    },
     hobbies: [
-      "Йога, стретчинг",
-      "Вело- и пешие прогулки",
-      "Обучаюсь каллиграфии",
-      "Интересуюсь психологией",
-      "Нравится активный отдых: сплавы, горы",
+      "Йога и стретчинг → развиваю концентрацию и устойчивость к стрессу",
+      "Вело- и пешие прогулки → заряжаюсь новыми идеями на свежем воздухе",
+      "Каллиграфия и картины по номерам → тренирую терпение и внимание к деталям",
+      "Психология → учусь слушать и слышать: пользователей, коллег, себя",
+      "Активный отдых (сплавы, горы) → заряжаюсь энергией для сложных проектов и дедлайнов",
     ],
   }
   return (
@@ -42,7 +47,7 @@ const About = () => {
     >
       <div className="about__info-block">
         <div className="about__photo">
-          <Image src="/src/assets/images/my_photo.jpg" />
+          <Image src="/src/assets/images/photo.jpg" />
         </div>
         <div className="about__brief-info">
           <h2 className="about__name">{dataAboutMe.name}</h2>
@@ -53,16 +58,21 @@ const About = () => {
       <div className="about__grid">
         <div className="about__column">
           <h3>Навыки</h3>
-          <ul className="about__list">
-            {dataAboutMe.skills.map((skill) => (
-              <li>{skill}</li>
-            ))}
-          </ul>
+          {Object.entries(dataAboutMe.skills).map(([category, skills]) => (
+            <div key={category} className="about__skills">
+              <h4 className="about__skills-title">{category}</h4>
+              <ul className="about__list">
+                {skills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div className="about__column">
           <h3>Увлечения</h3>
           <ul className="about__list">
-          {dataAboutMe.hobbies.map((hobby) => (
+            {dataAboutMe.hobbies.map((hobby) => (
               <li>{hobby}</li>
             ))}
           </ul>

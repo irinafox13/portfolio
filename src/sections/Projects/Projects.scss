@@ -1,7 +1,7 @@
 .projects {
   &__list {
     display: grid;
-    gap: 24px;
+    gap: 32px;
 
     @include tablet-above {
       grid-template-columns: repeat(2, 1fr);

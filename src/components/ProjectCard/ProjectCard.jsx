@@ -1,6 +1,6 @@
 import classNames from "classnames"
 import "./ProjectCard.scss"
-import { Image, Picture } from "minista"
+import { Picture } from "minista"
 
 const ProjectCard = (props) => {
   const { className, project } = props
@@ -8,7 +8,7 @@ const ProjectCard = (props) => {
   return (
     <li className={classNames("project-card", className)}>
       <div className="project-card__header">
-        <a href={project.url} className="project-card__image-wrapper">
+        <a href={project.url} target="_blank" className="project-card__image-wrapper">
           <Picture src={project.screenshot} formats={["webp", "inherit"]} formatOptions={"webp"} className="project-card__screenshot" />
         </a>
         {project.stack.length > 0 && (

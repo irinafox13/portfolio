@@ -83,6 +83,17 @@
     }
   }
 
+  &__skills {
+    display: grid;
+    gap: 8px;
+
+    &-title {
+      font-size: 14px;
+      font-weight: 900;
+      margin: 0;
+    }
+  }
+
   &__list {
     display: grid;
     gap: 8px;

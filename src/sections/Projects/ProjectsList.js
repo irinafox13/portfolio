@@ -59,7 +59,7 @@ export const projectsList = [
     description: "Комнаты квестов по франшизе ",
     screenshot: "/src/assets/images/projects/panika.jpg",
     stack: ["javascript", "handlebars", "sass", "webpack"],
-    tasks: ["Разделение javascript кода на chunks"],
+    tasks: ["Анимация при прокрутке страницы (библиотека AOS)", "Разделение javascript кода на chunks"],
     url: "https://fr.panika.org/",
   },
   {

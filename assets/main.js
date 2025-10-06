@@ -1,96 +1,158 @@
-// class r{constructor(e,t,s={}){this.element=e,this.texts=t,this.options={typingSpeed:100,erasingSpeed:50,delayAfterTyping:1e3,delayAfterErasing:500,cursor:"_",loop:!0,...s},this.currentTextIndex=0,this.charIndex=0,this.isTyping=!0,this.timeout=null,this.start()}start(){this.isTyping?this.type():this.erase()}type(){if(this.charIndex<=this.texts[this.currentTextIndex].length){const e=this.texts[this.currentTextIndex].substring(0,this.charIndex);this.element.textContent=e+this.options.cursor,this.charIndex++,this.timeout=setTimeout(()=>this.type(),this.options.typingSpeed)}else this.isTyping=!1,this.timeout=setTimeout(()=>this.start(),this.options.delayAfterTyping)}erase(){if(this.charIndex>=0){const e=this.texts[this.currentTextIndex].substring(0,this.charIndex);this.element.textContent=e+this.options.cursor,this.charIndex--,this.timeout=setTimeout(()=>this.erase(),this.options.erasingSpeed)}else this.isTyping=!0,this.currentTextIndex=(this.currentTextIndex+1)%this.texts.length,this.timeout=setTimeout(()=>this.start(),this.options.delayAfterErasing)}destroy(){clearTimeout(this.timeout),this.element.textContent=""}}class o{constructor(){this.menuItems=["about","projects","contacts"],this.menuAnchors=document.querySelectorAll(".banner__menu-anchor"),this.observer=null,this.currentActive=null,this.init()}init(){this.createObserver(),this.observeSections(),this.addClickListeners(),this.setInitialActive()}createObserver(){const e={threshold:[0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1],rootMargin:"0px 0px -30% 0px"};this.observer=new IntersectionObserver(t=>{this.handleIntersection(t)},e)}handleIntersection(e){let t=null,s=0;e.forEach(i=>{i.intersectionRatio>s&&(s=i.intersectionRatio,t=i.target.id)}),t&&t!==this.currentActive&&(this.updateActiveMenu(t),this.currentActive=t)}setInitialActive(){for(const e of this.menuItems){const t=document.getElementById(e);if(t&&this.isElementInViewport(t)){this.updateActiveMenu(e),this.currentActive=e;return}}this.updateActiveMenu(this.menuItems[0])}isElementInViewport(e){const t=e.getBoundingClientRect();return t.top<=window.innerHeight&&t.bottom>=0}updateActiveMenu(e){this.menuAnchors.forEach(t=>{const s=t.getAttribute("href")===`#${e}`;t.classList.toggle("banner__menu-anchor--current",s)})}observeSections(){this.menuItems.forEach(e=>{const t=document.getElementById(e);t&&this.observer.observe(t)})}addClickListeners(){this.menuAnchors.forEach(e=>{e.addEventListener("click",t=>{t.preventDefault();const s=e.getAttribute("href").substring(1),i=document.getElementById(s);i&&i.scrollIntoView({behavior:"smooth"})})})}}const h=["HTML layout designer","Frontend-developer"];new r(document.querySelector("[data-js-typewritten]"),h);new o;
 
+
+/**
+ * Класс для отслеживания видимости секций и обновления активного пункта меню
+ */
 class MenuObserver {
+  /**
+   * Создает экземпляр MenuObserver
+   * @constructor
+   */
   constructor() {
-      this.menuItems = ['about', 'projects', 'contacts'];
-      this.menuAnchors = document.querySelectorAll('.banner__menu-anchor');
-      this.observer = null;
-      this.currentActive = null;
-      
-      this.init();
+    /**
+     * Массив идентификаторов секций для отслеживания
+     * @type {string[]}
+     */
+    this.menuItems = ['about', 'projects', 'contacts'];
+
+    /**
+     * Коллекция элементов меню-якорей
+     * @type {NodeList}
+     */
+    this.menuAnchors = document.querySelectorAll('.banner__menu-anchor');
+
+    /**
+     * Экземпляр IntersectionObserver для отслеживания видимости секций
+     * @type {IntersectionObserver|null}
+     */
+    this.observer = null;
+
+    /**
+     * Идентификатор текущей активной секции
+     * @type {string|null}
+     */
+    this.currentActive = null;
+
+    this.init();
   }
-  
+
+  /**
+   * Инициализирует наблюдатель
+   * @private
+   */
   init() {
-      this.createObserver();
-      this.observeSections();
-      this.addClickListeners();
-      this.setInitialActive();
+    this.createObserver();
+    this.observeSections();
+    this.addClickListeners();
+    this.setInitialActive();
   }
-  
+
+  /**
+   * Создает экземпляр IntersectionObserver с настройками
+   * @private
+   */
   createObserver() {
-      const options = {
-          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-          rootMargin: '0px 0px -30% 0px'
-      };
-      
-      this.observer = new IntersectionObserver((entries) => {
-          this.handleIntersection(entries);
-      }, options);
+    const options = {
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+      rootMargin: '0px 0px -30% 0px'
+    };
+
+    this.observer = new IntersectionObserver((entries) => {
+      this.handleIntersection(entries);
+    }, options);
   }
-  
+
+  /**
+   * Обрабатывает записи IntersectionObserver
+   * @param {IntersectionObserverEntry[]} entries - Массив записей наблюдателя
+   * @private
+   */
   handleIntersection(entries) {
-      let mostVisibleSection = null;
-      let highestRatio = 0;
-      
-      entries.forEach(entry => {
-          if (entry.intersectionRatio > highestRatio) {
-              highestRatio = entry.intersectionRatio;
-              mostVisibleSection = entry.target.id;
-          }
-      });
-      
-      if (mostVisibleSection && mostVisibleSection !== this.currentActive) {
-          this.updateActiveMenu(mostVisibleSection);
-          this.currentActive = mostVisibleSection;
+    let mostVisibleSection = null;
+    let highestRatio = 0;
+
+    entries.forEach(entry => {
+      if (entry.intersectionRatio > highestRatio) {
+        highestRatio = entry.intersectionRatio;
+        mostVisibleSection = entry.target.id;
       }
+    });
+
+    if (mostVisibleSection && mostVisibleSection !== this.currentActive) {
+      this.updateActiveMenu(mostVisibleSection);
+      this.currentActive = mostVisibleSection;
+    }
   }
-  
+
+  /**
+   * Устанавливает начальный активный пункт меню на основе видимой секции
+   * @private
+   */
   setInitialActive() {
-      for (const id of this.menuItems) {
-          const section = document.getElementById(id);
-          if (section && this.isElementInViewport(section)) {
-              this.updateActiveMenu(id);
-              this.currentActive = id;
-              return;
-          }
+    for (const id of this.menuItems) {
+      const section = document.getElementById(id);
+      if (section && this.isElementInViewport(section)) {
+        this.updateActiveMenu(id);
+        this.currentActive = id;
+        return;
       }
-      // Если ничего не видно, активируем первую секцию
-      this.updateActiveMenu(this.menuItems[0]);
+    }
+    // Если ничего не видно, активируем первую секцию
+    this.updateActiveMenu(this.menuItems[0]);
   }
-  
+
+  /**
+   * Проверяет, находится ли элемент в области видимости
+   * @param {Element} el - Элемент для проверки
+   * @returns {boolean} true если элемент видим
+   * @private
+   */
   isElementInViewport(el) {
-      const rect = el.getBoundingClientRect();
-      return rect.top <= window.innerHeight && rect.bottom >= 0;
+    const rect = el.getBoundingClientRect();
+    return rect.top <= window.innerHeight && rect.bottom >= 0;
   }
-  
+
+  /**
+   * Обновляет активный пункт меню
+   * @param {string} activeId - Идентификатор активной секции
+   * @private
+   */
   updateActiveMenu(activeId) {
-      this.menuAnchors.forEach(anchor => {
-          const isActive = anchor.getAttribute('href') === `#${activeId}`;
-          anchor.classList.toggle('banner__menu-anchor--current', isActive);
-      });
+    this.menuAnchors.forEach(anchor => {
+      const isActive = anchor.getAttribute('href') === `#${activeId}`;
+      anchor.classList.toggle('banner__menu-anchor--current', isActive);
+    });
   }
-  
+
+  /**
+   * Начинает отслеживание секций с помощью IntersectionObserver
+   * @private
+   */
   observeSections() {
-      this.menuItems.forEach(id => {
-          const section = document.getElementById(id);
-          if (section) {
-              this.observer.observe(section);
-          }
-      });
+    this.menuItems.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) {
+        this.observer.observe(section);
+      }
+    });
   }
-  
+
+  /**
+   * Добавляет обработчики кликов для якорей меню
+   * @private
+   */
   addClickListeners() {
-      this.menuAnchors.forEach(anchor => {
-          anchor.addEventListener('click', (e) => {
-              e.preventDefault();
-              const targetId = anchor.getAttribute('href').substring(1);
-              const targetSection = document.getElementById(targetId);
-              
-              if (targetSection) {
-                  targetSection.scrollIntoView({ behavior: 'smooth' });
-              }
-          });
+    this.menuAnchors.forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = anchor.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
       });
+    });
   }
 }
 
@@ -125,12 +187,12 @@ class TypewriterEffect {
     this.element = element;
     this.texts = texts;
     this.options = {
-      typingSpeed: 100, 
+      typingSpeed: 100,
       erasingSpeed: 50,
       delayAfterTyping: 1000,
       delayAfterErasing: 500,
-      cursor: '_',         
-      loop: true,          
+      cursor: '_',
+      loop: true,
       ...options
     };
 

@@ -1,0 +1,16 @@
+.projects {
+  &__list {
+    display: grid;
+    gap: 32px;
+
+    @include tablet-above {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 16px;
+    }
+
+    @include laptop-above {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px 24px;
+    }
+  }
+}

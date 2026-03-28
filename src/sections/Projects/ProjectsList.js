@@ -1,7 +1,15 @@
 export const projectsList = [
-  
   {
     id: 1,
+    name: "Litokol",
+    description: "Сайт для производителя сухих строительных смесей для ремонта",
+    screenshot: "/src/assets/images/projects/litokol.jpg",
+    stack: ["javascript", "handlebars", "sass", "vite"],
+    tasks: ["Адаптивная и кроссбраузерная верстка сайта"],
+    url: "https://www.litokol.ru/",
+  },
+  {
+    id: 2,
     name: "Machaon",
     description: "Разработка ИТ‑продуктов",
     screenshot: "/src/assets/images/projects/machaon.jpg",
@@ -10,21 +18,23 @@ export const projectsList = [
     url: "https://machaon.ru/",
   },
   {
-    id: 2,
+    id: 3,
     name: "Еврейский музей и центр толерантности",
     description: "Культурно-образовательный проект",
     screenshot: "/src/assets/images/projects/museum.jpg",
     stack: ["javascript", "nunjucks", "sass", "webpack"],
     tasks: ["Покупка билетов", "Инфомат", "SVG-анимация"],
     url: "https://www.jewish-museum.ru/",
-  }, 
+  },
   {
-    id: 3,
+    id: 4,
     name: "Университет МФЮА",
     description: "Официальный сайт",
     screenshot: "/src/assets/images/projects/mfua.jpg",
     stack: ["javascript", "nunjucks", "handlebars", "sass", "webpack"],
-    tasks: ["А также верстка смежных сайтов: <a href='https://rector.mfua.ru/' target='_blank'>ректора МФЮА</a>, <a href='https://idomfua.ru/' target='_blank'>Института дополнительного образования</a>, <a href='https://do.mfua.ru/' target='_blank'>Института заочного обучения</a>, <a href='https://www.mfua.ru/kwu/' target='_blank'>муждународных программ бакалавриата</a>"],
+    tasks: [
+      "А также верстка смежных сайтов: <a href='https://rector.mfua.ru/' target='_blank'>ректора МФЮА</a>, <a href='https://idomfua.ru/' target='_blank'>Института дополнительного образования</a>, <a href='https://do.mfua.ru/' target='_blank'>Института заочного обучения</a>, <a href='https://www.mfua.ru/kwu/' target='_blank'>муждународных программ бакалавриата</a>",
+    ],
     url: "https://www.mfua.ru/",
   },
   {
@@ -51,7 +61,10 @@ export const projectsList = [
     description: "Комнаты квестов по франшизе ",
     screenshot: "/src/assets/images/projects/panika.jpg",
     stack: ["javascript", "handlebars", "sass", "webpack"],
-    tasks: ["Анимация при прокрутке страницы (библиотека AOS)", "Разделение javascript кода на chunks"],
+    tasks: [
+      "Анимация при прокрутке страницы (библиотека AOS)",
+      "Разделение javascript кода на chunks",
+    ],
     url: "https://fr.panika.org/",
   },
   {
